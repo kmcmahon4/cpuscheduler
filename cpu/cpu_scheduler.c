@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <time.h>
 
 int main()
 {//start main
@@ -53,6 +53,12 @@ return 0;
 void fcfs()
 {//start fcfs
 
+
+char yorn;
+char Y = 'Y';
+char y = 'y';
+char N = 'N';
+char n = 'n';
 printf("********** FIRST COME FIRST SERVE **********\n");
 //Processes limit is 10
 //Initializing, etc
@@ -61,12 +67,31 @@ float burst_time[10], waiting_time[10], turnaround_time[10];
         int count, j, total_process;
         printf("Enter The Number of Processes To Execute:\t");
         scanf("%d", &total_process);
-        printf("\nEnter The Burst Time of Processes:\n\n");
-        for(count = 0; count < total_process; count++)
+
+        printf("Would you like randomized burst times? Y or N\n");
+            scanf("%s", &yorn);
+    
+        if(yorn ==N || yorn ==n)
         {
+             printf("\nEnter The Burst Time of Processes:\n\n");
+            for(count = 0; count < total_process; count++)
+            {
                 printf("Process [%d]:", count + 1);
                 scanf("%f", &burst_time[count]);
+            }
         }
+
+        if (yorn ==Y || yorn ==y)
+        {
+        srand(time(NULL));
+            for(count =0;count < total_process;count++)
+                {
+                
+                burst_time[count]=(rand() % 21);
+
+
+                }
+        }  
         //Waiting time of first process in queue will always be zero
         waiting_time[0] = 0;
         
@@ -106,18 +131,44 @@ float burst_time[10], waiting_time[10], turnaround_time[10];
 
 void sjf()
 {//start sjf
+
+char yorn;
+char Y = 'Y';
+char y = 'y';
+char N = 'N';
+char n = 'n';
 printf("********** SHORTEST JOB FIRST **********\n");
 int temp, i, j, limit, sum = 0, position;
       float average_wait_time, average_turnaround_time; //Cant be ints
       int burst_time[10], process[10], waiting_time[10], turnaround_time[10];
       printf("\nEnter Total Number of Processes:\t");
-      scanf("%d", &limit); 
-      for(i = 0; i < limit; i++)
-      {
+      scanf("%d", &limit);
+
+        
+         printf("Would you like randomized burst times? Y or N\n");
+            scanf("%s", &yorn);
+    
+
+        if(yorn ==N || yorn == n)
+        {
+        for(i = 0; i < limit; i++)
+            {
             printf("Enter Burst Time For Process[%d]:\t", i + 1);
             scanf("%d", &burst_time[i]);
             process[i] = i + 1;
-      }
+            }
+        }
+        if (yorn ==Y || yorn ==y)
+        {
+        srand(time(NULL));
+            for(i =0;i < limit;i++)
+                {
+                
+                burst_time[i]=(rand() % 21);
+                process[i] = i +1;
+
+                }
+        }  
 
         
       for(i = 0; i < limit; i++)
