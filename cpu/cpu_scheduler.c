@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {//start main
@@ -50,9 +51,12 @@ return 0;
 
 
 void fcfs()
-{//atart fcfs
+{//start fcfs
+
 printf("********** FIRST COME FIRST SERVE **********\n");
-float burst_time[30], waiting_time[30], turnaround_time[30];
+//Processes limit is 10
+//Initializing, etc
+float burst_time[10], waiting_time[10], turnaround_time[10];
         float average_waiting_time = 0.0, average_turnaround_time = 0.0;
         int count, j, total_process;
         printf("Enter The Number of Processes To Execute:\t");
@@ -63,10 +67,16 @@ float burst_time[30], waiting_time[30], turnaround_time[30];
                 printf("Process [%d]:", count + 1);
                 scanf("%f", &burst_time[count]);
         }
-        waiting_time[0] = 0;   
+        //Waiting time of first process in queue will always be zero
+        waiting_time[0] = 0;
+        
         for(count = 1; count < total_process; count++)
         {
+                //This is so that we are able to calculate the average of the array without NULL values
+                //if all processes are not filled.
                 waiting_time[count] = 0;
+                //Nested for loop. This inner loop "follows" the outer loop to
+                //enable summing of the previous processes' burst time.
                 for(j = 0; j < count; j++)
                 {
                         waiting_time[count] = waiting_time[count] + burst_time[j];
@@ -75,12 +85,15 @@ float burst_time[30], waiting_time[30], turnaround_time[30];
         printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time\n");
         for(count = 0; count < total_process; count++)
         {
-                turnaround_time[count] = burst_time[count] + waiting_time[count];
-                average_waiting_time = average_waiting_time + waiting_time[count];
+                //Going Across and summing process information - Simply the turnaround time calculation
+                turnaround_time[count] = burst_time[count] + waiting_time[count]; 
+                average_waiting_time = average_waiting_time + waiting_time[count]; //
                 average_turnaround_time = average_turnaround_time + turnaround_time[count];
                 printf("\nProcess [%d]\t\t%.2f\t\t%.2f\t\t%.2f", count + 1, burst_time[count], waiting_time[count], turnaround_time[count]);
         }
         printf("\n");
+
+        //Printing the averages
         average_waiting_time = average_waiting_time / count;
         average_turnaround_time = average_turnaround_time / count;
         printf("\nAverage Waiting Time = %f", average_waiting_time);
@@ -95,8 +108,8 @@ void sjf()
 {//start sjf
 printf("********** SHORTEST JOB FIRST **********\n");
 int temp, i, j, limit, sum = 0, position;
-      float average_wait_time, average_turnaround_time;
-      int burst_time[20], process[20], waiting_time[20], turnaround_time[20];
+      float average_wait_time, average_turnaround_time; //Cant be ints
+      int burst_time[10], process[10], waiting_time[10], turnaround_time[10];
       printf("\nEnter Total Number of Processes:\t");
       scanf("%d", &limit); 
       for(i = 0; i < limit; i++)
@@ -105,9 +118,12 @@ int temp, i, j, limit, sum = 0, position;
             scanf("%d", &burst_time[i]);
             process[i] = i + 1;
       }
+
+        
       for(i = 0; i < limit; i++)
       {
-            position = i;
+            position = i; 
+            //This sorts the processes - GANTT 
             for(j = i + 1; j < limit; j++)
             {
                   if(burst_time[j] < burst_time[position])
@@ -115,17 +131,22 @@ int temp, i, j, limit, sum = 0, position;
                         position = j;
                   }
             }
+//temp array for sorting
             temp = burst_time[i];
             burst_time[i] = burst_time[position];
             burst_time[position] = temp;
-            temp = process[i];
+         temp = process[i];
             process[i] = process[position];
             process[position] = temp;
-      } 
+      }
+       //Waiting time will always be zero for first process 
       waiting_time[0] = 0;
+    //Starting at 1 because of this 
       for(i = 1; i < limit; i++)
       {
+            //So that there are no NULL values in array
             waiting_time[i] = 0;
+            //Nested for loop lets us "follow", just as in FCFS
             for(j = 0; j < i; j++)
             {
                   waiting_time[i] = waiting_time[i] + burst_time[j];
@@ -134,6 +155,8 @@ int temp, i, j, limit, sum = 0, position;
       }
       average_wait_time = (float)sum / limit;
       sum = 0;
+
+    //Printing everything, blah blah
       printf("\nProcess ID\t\tBurst Time\t Waiting Time\t Turnaround Time\n");
       for(i = 0; i < limit; i++)
       {
@@ -155,18 +178,32 @@ printf("********** ROUND ROBIN **********\n");
 
 
 
-
+char yorn;
+char Y = 'Y';
+char y = 'y';
+char N = 'N';
+char n = 'n';
 int i, limit, total = 0, x, counter = 0, time_quantum; 
       int wait_time = 0, turnaround_time = 0, arrival_time[10], burst_time[10], temp[10]; 
       float average_wait_time, average_turnaround_time;
       printf("\nEnter Total Number of Processes:\t"); 
-      scanf("%d", &limit); 
-      x = limit; 
+      scanf("%d", &limit);
+//consideration of arrival times.
+  printf("\n Do we want to consider arrival times? Y for manual arrival times, N initializes all to 0\n");
+            scanf("%s", &yorn);
+      x = limit; //No reason for this it just helped me look at limit rather than an x
       for(i = 0; i < limit; i++) 
       {
             printf("\nEnter Details of Process[%d]\n", i + 1);
-            printf("Arrival Time:\t");
-            scanf("%d", &arrival_time[i]);
+            if (yorn== Y || yorn ==y)
+                {
+                 printf("Arrival Time:\t");
+                 scanf("%d", &arrival_time[i]);
+                }
+            if (yorn == N || yorn ==n)
+                {
+                arrival_time[i] =0;
+                }
             printf("Burst Time:\t");
             scanf("%d", &burst_time[i]); 
             temp[i] = burst_time[i];
