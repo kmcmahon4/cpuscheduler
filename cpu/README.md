@@ -53,8 +53,6 @@ How to use my program:
 -If you are in RR:
 -Press Y or N if you would like to consider arrival times
 -if N, all arrival times will be initialized to 0. If Y, you will be asked to input them manually
--Press Y or N if you would like randomized burst times
-- If N, you will be asked to manually input them
 -Enter a time quantum
 
 -Press 9 to exit the program after execution
