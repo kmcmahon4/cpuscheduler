@@ -3,6 +3,13 @@ CPU Scheduler Program - Readme File
 
 Welcome to my CPU Scheduling Simulation Program. Some brief things to note:
 
+-TO USE MY PC AND RUN PROGRAM:
+-  -password: supernova
+-  -Open terminal (CLICK BUTTON IN BOTTOM RIGHT CORNER, TYPE IN TERMINAL IN SEARCH BAR)
+- cd ./Desktop/cpu
+- ./cpu_scheduler
+
+
 - - ASSUMPTIONS - -   
 Maximum amount of process that can be considered is 10 for each algorithm.
 Random burst time generation maximum value is 20.
