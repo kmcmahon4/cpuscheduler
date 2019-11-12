@@ -88,7 +88,11 @@ float burst_time[10], waiting_time[10], turnaround_time[10];
                 {
                 
                 burst_time[count]=(rand() % 21);
-
+                //We dont want a process with a burst time of 0 - doesnt make sense 
+                if(burst_time[count]==0)
+                {
+                burst_time[count]=1;
+                }
 
                 }
         }  
@@ -165,6 +169,11 @@ int temp, i, j, limit, sum = 0, position;
                 {
                 
                 burst_time[i]=(rand() % 21);
+                     //We dont want a process with a burst time of 0 - doesnt make sense 
+                if(burst_time[i]==0)
+                {
+                burst_time[i]=1;
+                }
                 process[i] = i +1;
 
                 }
@@ -228,8 +237,8 @@ void rr()
 printf("********** ROUND ROBIN **********\n");
 
 
-
-char yorn;
+char yorn1;//second prompt for random burst times
+char yorn;//first prompt for arrival times
 char Y = 'Y';
 char y = 'y';
 char N = 'N';
@@ -241,8 +250,11 @@ int i, limit, total = 0, x, counter = 0, time_quantum;
       scanf("%d", &limit);
 //consideration of arrival times.
   printf("\n Do we want to consider arrival times? Y for manual arrival times, N initializes all to 0\n");
-            scanf("%s", &yorn);
-      x = limit; //No reason for this it just helped me look at limit rather than an x
+  scanf("%s", &yorn);
+  x = limit;
+
+              
+
       for(i = 0; i < limit; i++) 
       {
             printf("\nEnter Details of Process[%d]\n", i + 1);
@@ -256,27 +268,38 @@ int i, limit, total = 0, x, counter = 0, time_quantum;
                 arrival_time[i] =0;
                 }
             printf("Burst Time:\t");
-            scanf("%d", &burst_time[i]); 
+            scanf("%d", &burst_time[i]);
+           
             temp[i] = burst_time[i];
-      } 
+           // printf(" %d ", burst_time[i]);
+      }
+
       printf("\nEnter Time Quantum:\t"); 
       scanf("%d", &time_quantum); 
       printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\n");
       for(total = 0, i = 0; x != 0;) 
-      { 
+      {
+ 
             if(temp[i] <= time_quantum && temp[i] > 0) 
-            { 
+            {
+               // printf(" line 287 ");
                   total = total + temp[i]; 
                   temp[i] = 0; 
                   counter = 1; 
             } 
             else if(temp[i] > 0) 
-            { 
-                  temp[i] = temp[i] - time_quantum; 
-                  total = total + time_quantum; 
+            {
+           
+                  temp[i] = temp[i] - time_quantum;
+                //printf("%d", temp[i]);
+                  total = total + time_quantum;
+             //printf("total equals: ");
+               /// printf(" %d ", total);
+
             } 
             if(temp[i] == 0 && counter == 1) 
-            { 
+            {
+               // printf("%d", total);
                   x--; 
                   printf("\nProcess[%d]\t\t%d\t\t %d\t\t\t %d", i + 1, burst_time[i], total - arrival_time[i], total - arrival_time[i] - burst_time[i]);
                   wait_time = wait_time + total - arrival_time[i] - burst_time[i]; 
@@ -285,15 +308,19 @@ int i, limit, total = 0, x, counter = 0, time_quantum;
             } 
             if(i == limit - 1) 
             {
+               // printf(" i==limit-1 ");
                   i = 0; 
             }
             else if(arrival_time[i + 1] <= total) 
             {
+                //printf(" i++ ");
                   i++;
             }
             else 
             {
-                  i = 0;
+                   //printf(" i=0 "); 
+                  i = 0; 
+                    // break;
             }
       } 
       average_wait_time = wait_time * 1.0 / limit;

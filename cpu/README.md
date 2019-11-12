@@ -7,7 +7,7 @@ Welcome to my CPU Scheduling Simulation Program. Some brief things to note:
 Maximum amount of process that can be considered is 10 for each algorithm.
 Random burst time generation maximum is 20.
 
-- In Round Robin Algorithm, I have incorporated consideration for the arrival timesinto the program. I was not sure if
+- In Round Robin Algorithm, I have incorporated consideration for the arrival times into the program. I was not sure if
 this was required, so I did it however there is also an option to initialize all arrival times to 0.
 
 - Random burst times initialized by time of day, rand() function in standard C library
@@ -28,7 +28,7 @@ My program consists of:
 -void rr() function
 -Purpose: to perform Round Robin Algorithm
 
--My program does NOT include a header file, as it was not necessary.
+-My program does NOT include a header (.h) file, as it was not necessary.
 
 
 
@@ -51,6 +51,8 @@ How to use my program:
 - If N, you will be asked to manually input them
 
 -If you are in RR:
+-Press Y or N if you would like to consider arrival times
+-if N, all arrival times will be initialized to 0. If Y, you will be asked to input them manually
 -Press Y or N if you would like randomized burst times
 - If N, you will be asked to manually input them
 -Enter a time quantum
