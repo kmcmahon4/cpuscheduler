@@ -55,7 +55,7 @@ How to use my program:
 -if N, all arrival times will be initialized to 0. If Y, you will be asked to input them manually
 -Enter a time quantum
 
--Press 9 to exit the program after execution
+-Press 9 to exit the program after desired execution
 
 
 
