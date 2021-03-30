@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "utils.h"
 
 int main() { // Start main
       printf("******* CPU SCHEDULER PROGRAM ********\n");
@@ -37,11 +38,7 @@ int main() { // Start main
 
 
 void fcfs(){ // Start fcfs
-      char yorn;
-      char Y = 'Y';
-      char y = 'y';
-      char N = 'N';
-      char n = 'n';
+
       // Processes limit is 10
       // Initializing, etc
       float burst_time[10], waiting_time[10], turnaround_time[10];
@@ -110,11 +107,7 @@ void fcfs(){ // Start fcfs
 
 void sjf()
 { // Start sjf
-      char yorn;
-      char Y = 'Y';
-      char y = 'y';
-      char N = 'N';
-      char n = 'n';
+
       int temp, i, j, limit, sum = 0, position;
       float average_wait_time, average_turnaround_time; // Cant be ints
       int burst_time[10], process[10], waiting_time[10], turnaround_time[10];
@@ -138,14 +131,12 @@ void sjf()
         srand(time(NULL));
             for(i = 0;i < limit;i++)
                 {
-                
                 burst_time[i]=(rand() % 21);
                 // We dont want a process with a burst time of 0 - doesn't make sense 
                 if(burst_time[i] == 0){
-                burst_time[i] = 1;
+                  burst_time[i] = 1;
                 }
                 process[i] = i +1;
-
                 }
         }  
 
@@ -207,11 +198,7 @@ void rr()
       printf("********** ROUND ROBIN **********\n");
 
       char yorn1; // Second prompt for random burst times
-      char yorn;  // First prompt for arrival times
-      char Y = 'Y';
-      char y = 'y';
-      char N = 'N';
-      char n = 'n';
+
       int i, limit, total = 0, x, counter = 0, time_quantum; 
       int wait_time = 0, turnaround_time = 0, arrival_time[10], burst_time[10], temp[10]; 
       float average_wait_time, average_turnaround_time;
